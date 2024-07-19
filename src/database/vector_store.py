@@ -18,4 +18,5 @@ class VectorStore:
         results = self.collection.query(query_texts=[query], n_results=n_results)
         return results
     
-vector_store = VectorStore()
+def get_vector_store() -> VectorStore:
+    return VectorStore()

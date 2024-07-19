@@ -5,6 +5,7 @@ class Settings(BaseSettings):
     DESCRIPTION: str = "A chatbot API for DSM"
     VERSION: str = "1.0.0"
     PDF_DIRECTORY: str = "./docs"
+    LLM_MODEL_NAME: str = "mistral"
 
     class Config:
         env_file = ".env"
