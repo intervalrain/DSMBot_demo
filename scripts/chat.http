@@ -1,0 +1,6 @@
+POST http://0.0.0.0:8000/chat
+Content-Type: application/json
+
+{
+    "query": "hello"
+}
