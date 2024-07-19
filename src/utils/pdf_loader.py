@@ -2,6 +2,7 @@ import os
 import logging
 from PyPDF2 import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from src.config import settings
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -23,7 +24,7 @@ def load_pdfs_from_directory(directory_path):
     logger.info(f"Loaded {len(documents)} documents in total")
     return documents
 
-def split_documents(documents, chunk_size=1000, chunk_overlap=200):
+def split_documents(documents, chunk_size=settings.CHUNK_SIZE, chunk_overlap=settings.CHUNK_OVERLAP):
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=chunk_size,
         chunk_overlap=chunk_overlap,

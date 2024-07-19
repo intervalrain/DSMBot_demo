@@ -24,9 +24,8 @@ class ChatService:
 Assistant: 根據提供的資訊，我的回答是：
 """
         
-        # 使用 Ollama LLM 生成回應
         response = await self.llm.generate(prompt)
-        return response.strip()  # 移除可能的前後空白
+        return response.strip() 
 
 def get_chat_service(
     vector_store: VectorStore = Depends(VectorStore),

@@ -1,6 +1,7 @@
 import chromadb
 from chromadb.config import Settings
 from chromadb.utils import embedding_functions
+from src.config import settings
 
 class VectorStore:
     def __init__(self):
@@ -14,7 +15,7 @@ class VectorStore:
             metadatas=[doc.metadata for doc in documents], 
             ids=[f"doc_{i}" for i in range(len(documents))])
 
-    def search(self, query, n_results=5):
+    def search(self, query, n_results=settings.TOP_K):
         results = self.collection.query(query_texts=[query], n_results=n_results)
         return results
     
