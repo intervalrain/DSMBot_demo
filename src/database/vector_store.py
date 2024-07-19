@@ -1,21 +1,21 @@
 import chromadb
 from chromadb.config import Settings
+from chromadb.utils import embedding_functions
 
 class VectorStore:
     def __init__(self):
         self.client = chromadb.Client(Settings(allow_reset=True))
-        self.collection = self.client.create_collection("product_manuals")
+        self.collection = self.client.create_collection("DSM")
+        self.embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
 
-    async def add_documents(self, documents, metadatas, ids):
-        self.collection.add(documents=documents, metadatas=metadatas, ids=ids)
+    def add_documents(self, documents):
+        self.collection.add(
+            documents=[doc.page_content for doc in documents], 
+            metadatas=[doc.metadata for doc in documents], 
+            ids=[f"doc_{i}" for i in range(len(documents))])
 
-    async def search(self, query, n_results=5):
+    def search(self, query, n_results=5):
         results = self.collection.query(query_texts=[query], n_results=n_results)
         return results
     
 vector_store = VectorStore()
-vector_store.add_documents(
-    documents=["This is a sample document", "Annother sample manual"],
-    metadatas=[{"tech": "22ehv", "tech": "22ulp"}],
-    ids=["1","2"]
-)
