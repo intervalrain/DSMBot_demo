@@ -1,3 +1,6 @@
+# DSM Bot
+![mainlayout](./mainlayout.jpg)
+
 # Tech Stacks
 1. 後端框架: FastAPI
 2. 程式語言: Python
@@ -35,6 +38,11 @@ project_root/
 │   ├── chat_request.py
 │   ├── chat_response.py
 │   └── document_load_response.py
+│
+├── web/
+│   ├── index.html                       # 主頁面 HTML 文件
+│   ├── script.js                        # 處理前端邏輯的 JavaScript 文件
+│   └── style.css                        # 定義前端樣式的 CSS 文件
 │
 ├── data/
 │

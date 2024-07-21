@@ -3,17 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Bot</title>
+    <title>DSM Bot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="chat-container">
-        <div id="chat-messages"></div>
-        <div id="input-container">
-            <input type="text" id="user-input" placeholder="Type your message...">
-            <button id="send-button">Send</button>
+    <div id="app-container">
+        <div id="title-bar">
+            <h1>DSM Bot</h1>
+        </div>
+        <div id="main-content">
+            <div id="sidebar">
+                <div id="sidebar-toggle"><i class="fas fa-chevron-left"></i></div>
+                <h3>Documents</h3>
+                <ul id="documents-list"></ul>
+            </div>
+            <div id="resizer"></div>
+            <div id="chat-container">
+                <div id="chat-messages"></div>
+                <div id="settings-bar">
+                    <button id="model-select" title="Select Model"><i class="fas fa-robot"></i></button>
+                    <button id="topk-select" title="Set Top K"><i class="fas fa-list-ol"></i></button>
+                    <button id="temperature-select" title="Set Temperature"><i class="fas fa-thermometer-half"></i></button>
+                </div>
+                <div id="input-container">
+                    <input type="text" id="user-input" placeholder="Type your message...">
+                    <button id="send-button">Send</button>
+                </div>
+            </div>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

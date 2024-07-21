@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends
+from typing import List, Tuple
 from contracts.chat_request import ChatRequest
 from contracts.chat_response import ChatResponse
 from src.services.chat_service import ChatService, get_chat_service
@@ -16,7 +17,12 @@ async def chat(
     """
     try:
         response = await chat_service.generate_response(request.query)
-        return ChatResponse(response=response)
+        history = chat_service.get_conversation_history()
+        return ChatResponse(response=response, history=history)
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))
+    except HTTPException as he:
+        raise he
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="An unexpected error occurred")
     

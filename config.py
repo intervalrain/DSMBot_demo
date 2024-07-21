@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     # app configuration
     PDF_DIRECTORY: str = "./docs"
     LLM_MODEL_NAME: str = "mistral"
+    HISTORY_LENGTH: int = 5
     TOP_K: int = 5
     CHUNK_SIZE: int = 1000
     CHUNK_OVERLAP: int = 200
