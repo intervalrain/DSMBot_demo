@@ -23,9 +23,31 @@
             <div id="chat-container">
                 <div id="chat-messages"></div>
                 <div id="settings-bar">
-                    <button id="model-select" title="Select Model"><i class="fas fa-robot"></i></button>
-                    <button id="topk-select" title="Set Top K"><i class="fas fa-list-ol"></i></button>
-                    <button id="temperature-select" title="Set Temperature"><i class="fas fa-thermometer-half"></i></button>
+                    <div class="setting-item">
+                        <button id="model-select" title="Select Model"><i class="fas fa-robot"></i></button>
+                        <div class="setting-options model-options">
+                            <button class="model-option" data-model="mistral">Mist</button>
+                            <button class="model-option" data-model="llama3">L3</button>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <button id="topk-select" title="Set Top K"><i class="fas fa-list-ol"></i></button>
+                        <div class="setting-options">
+                            <div class="slider-container">
+                                <input type="range" id="topk-slider" min="1" max="10" value="3" orient="vertical">
+                                <span id="topk-value">3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <button id="temperature-select" title="Set Temperature"><i class="fas fa-thermometer-half"></i></button>
+                        <div class="setting-options">
+                            <div class="slider-container">
+                                <input type="range" id="temperature-slider" min="0" max="2" step="0.1" value="0.7" orient="vertical">
+                                <span id="temperature-value">0.7</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div id="input-container">
                     <input type="text" id="user-input" placeholder="Type your message...">

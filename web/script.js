@@ -15,9 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const topkSelect = document.getElementById('topk-select');
     const temperatureSelect = document.getElementById('temperature-select');
     
+    const settingItems = document.querySelectorAll('.setting-item');
+    const modelOptions = document.querySelectorAll('.model-option');
+    const topkSlider = document.getElementById('topk-slider');
+    const topkValue = document.getElementById('topk-value');
+    const temperatureSlider = document.getElementById('temperature-slider');
+    const temperatureValue = document.getElementById('temperature-value');
+
     // default setting
     let isResizing = false;
-    let currentModel = 'gpt-3.5-turbo';
+    let currentModel = 'mistral';
     let currentTopK = 3;
     let currentTemperature = 0.7;
 
@@ -117,21 +124,58 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Settings functionality
-    modelSelect.addEventListener('click', () => {
-        const models = ['gpt-3.5-turbo', 'gpt-4'];
-        const currentIndex = models.indexOf(currentModel);
-        currentModel = models[(currentIndex + 1) % models.length];
-        console.log('Model changed to:', currentModel);
-        // You might want to add some visual feedback here
+    settingItems.forEach(item => {
+        const button = item.querySelector('button');
+        const options = item.querySelector('.setting-options');
+    
+        button.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isVisible = options.classList.contains('show');
+            
+            // Close all open options
+            settingItems.forEach(otherItem => {
+                otherItem.querySelector('.setting-options').classList.remove('show');
+            });
+    
+            // If the clicked options weren't visible, show them
+            if (!isVisible) {
+                options.classList.add('show');
+            }
+        });
     });
 
-    topkSelect.addEventListener('click', () => {
-        currentTopK = prompt('Enter Top K value:', currentTopK);
+    modelOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            currentModel = option.dataset.model;
+            console.log('Model changed to:', currentModel);
+            modelOptions.forEach(opt => opt.classList.remove('active'));
+            option.classList.add('active');
+        });
+    });
+
+    topkSlider.addEventListener('input', () => {
+        currentTopK = parseInt(topkSlider.value);
+        topkValue.textContent = currentTopK;
         console.log('Top K changed to:', currentTopK);
     });
 
-    temperatureSelect.addEventListener('click', () => {
-        currentTemperature = prompt('Enter Temperature value (0-2):', currentTemperature);
+    temperatureSlider.addEventListener('input', () => {
+        currentTemperature = parseFloat(temperatureSlider.value).toFixed(1);
+        temperatureValue.textContent = currentTemperature;
         console.log('Temperature changed to:', currentTemperature);
+    });
+
+    // Close options when clicking outside
+    document.addEventListener('click', () => {
+        settingItems.forEach(item => {
+            item.querySelector('.setting-options').classList.remove('show');
+        });
+    });
+
+    // Prevent closing when clicking on the options
+    document.querySelectorAll('.setting-options').forEach(options => {
+        options.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
     });
 });
