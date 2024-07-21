@@ -12,17 +12,16 @@
 project_root/
 │
 ├── src/
-│   ├── config.py                         # App 的設置, 如預設的 model, pdf 路徑, chunk size & overlap 等等
-│   │
 │   ├── api/
 │   │
 │   ├── database/
 │   │   └── vector_store.py               # 管理向量資料庫的操作
 │   │
 │   ├── models/
-│   │   └── llm.py                        # 定義和初始化語言模型 (Ollama)
+│   │   └── 
 │   │
 │   ├── services/
+│   │   ├── llm_service.py                # 定義和初始化語言模型 (Ollama)
 │   │   ├── chat_service.py               # 處理聊天邏輯，整合向量資料庫與語言模型
 │   │   └── document_service.py           # 處理向量數據庫操作
 │   │
@@ -46,6 +45,7 @@ project_root/
 │
 ├── main.py
 ├── README.md
+├── config.py                         # App 的設置, 如預設的 model, pdf 路徑, chunk 
 └── requirements.txt
 ```
 

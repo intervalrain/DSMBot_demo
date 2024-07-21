@@ -1,7 +1,7 @@
 import chromadb
 from chromadb.config import Settings
 from chromadb.utils import embedding_functions
-from src.config import settings
+from config import settings
 
 class VectorStore:
     def __init__(self):

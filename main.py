@@ -1,64 +1,36 @@
+import os
+import logging
 from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks
-from pydantic import BaseModel
-from contracts.chat_request import ChatRequest
-from contracts.chat_response import ChatResponse
-from contracts.document_load_response import DocumentLoadResponse
-from src.config import settings
-from src.services.chat_service import ChatService, get_chat_service
-from src.services.document_service import DocumentService, get_document_service
+from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
+from config import settings
 from src.database.vector_store import VectorStore, get_vector_store
+from src.api.chat_api import router as chat_router
+from src.api.load_documents_api import router as load_documents_router
+from src.api.get_document_status_api import router as get_document_status_router
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
     description=settings.DESCRIPTION,
     version=settings.VERSION)
+logging.basicConfig(level=logging.INFO)
 
-@app.get("/")
-async def root():
-    """
-    Root endpoint that returns a welcome message.
-    """
-    return {"message": f"Welcome to {settings.PROJECT_NAME}"}
+# 允許所有來源的 CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-@app.post("/load-documents", response_model=DocumentLoadResponse)
-async def load_documents(
-    background_tasks: BackgroundTasks,
-    document_service: DocumentService = Depends(get_document_service)):
-    """
-    Load and index PDF documents from a specified directory.
-    """
-    try:
-        background_tasks.add_task(document_service.load_and_index_documents, settings.PDF_DIRECTORY)
-        return DocumentLoadResponse(message="Document loading started in the background.")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+# 掛載靜態文件
+app.mount("/web", StaticFiles(directory="web"), name="web")
 
-@app.get("/document-status")
-async def get_document_status(
-    vector_store: VectorStore = Depends(get_vector_store)):
-    """
-    Get the current status of indexed documents.
-    """
-    try:
-        doc_count = vector_store.collection.count()
-        return {"indexed_documents": doc_count}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.post("/chat", response_model=ChatResponse)
-async def chat(
-    request: ChatRequest, 
-    chat_service: ChatService = Depends(get_chat_service)):
-    """
-    Chat endpoint that generates a response based on the user's query.
-    
-    - **query**: The user's prompt
-    """
-    try:
-        response = await chat_service.generate_response(request.query)
-        return ChatResponse(response=response)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+# router
+app.include_router(chat_router)
+app.include_router(load_documents_router)
+app.include_router(get_document_status_router)
 
 if __name__ == "__main__":
     import uvicorn

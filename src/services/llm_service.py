@@ -1,5 +1,5 @@
 from langchain_community.llms import Ollama
-from src.config import settings
+from config import settings
 
 class LocalLLM:
     def __init__(self, model_name=settings.LLM_MODEL_NAME):

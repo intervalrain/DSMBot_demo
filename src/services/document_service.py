@@ -9,7 +9,7 @@ class DocumentService:
     def __init__(self, vector_store: VectorStore):
         self.vector_store = vector_store
         
-    async def load_and_index_documents(self, directory_path):
+    async def load_and_index_documents(self, directory_path: str):
         logger.info(f"Starting to load documents from {directory_path}")
         documents = load_pdfs_from_directory(directory_path)
         splits = split_documents(documents)

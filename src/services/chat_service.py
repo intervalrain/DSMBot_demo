@@ -1,6 +1,6 @@
 from fastapi import Depends
 from src.database.vector_store import VectorStore
-from src.models.llm import LocalLLM
+from src.services.llm_service import LocalLLM
 
 class ChatService:
     def __init__(self, vector_store: VectorStore, llm: LocalLLM):
