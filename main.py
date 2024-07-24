@@ -8,6 +8,7 @@ from src.database.vector_store import VectorStore, get_vector_store
 from src.api.chat_api import router as chat_router
 from src.api.load_documents_api import router as load_documents_router
 from src.api.get_document_status_api import router as get_document_status_router
+from src.api.get_auth_documents_api import router as get_auth_documents_router  
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -31,6 +32,7 @@ app.mount("/web", StaticFiles(directory="web"), name="web")
 app.include_router(chat_router)
 app.include_router(load_documents_router)
 app.include_router(get_document_status_router)
+app.include_router(get_auth_documents_router)
 
 if __name__ == "__main__":
     import uvicorn

@@ -1,0 +1,69 @@
+#chat-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+}
+
+#chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.message {
+    max-width: 70%;
+    margin-top: 15px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.user-message {
+    background-color: #007bff;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+}
+
+.bot-message {
+    background-color: #f1f0f0;
+    color: black;
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+}
+
+.message pre {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin: 10px 0;
+}
+
+.message code {
+    font-family: 'Courier New', Courier, monospace;
+}
+.message img {
+    max-width: 100%;
+    height: auto;
+}
+
+.message blockquote {
+    border-left: 3px solid #ccc;
+    margin: 0 0 10px 0;
+    padding-left: 10px;
+    color: #666;
+}
+
+/* 調整高亮程式碼塊的樣式 */
+.hljs {
+    background: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+}

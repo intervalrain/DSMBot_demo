@@ -1,0 +1,29 @@
+#input-container {
+    display: flex;
+    padding: 20px;
+    align-items: flex-end;  /* 新增：使按鈕對齊文本區域底部 */
+}
+
+#user-input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    resize: none;  /* 防止用戶調整大小 */
+    min-height: 40px;  /* 設置最小高度 */
+    max-height: 200px;  /* 設置最大高度 */
+    overflow-y: auto;  /* 當內容超過最大高度時，顯示滾動條 */
+}
+
+#send-button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    height: 40px;  /* 設置固定高度 */
+}
